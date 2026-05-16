@@ -35,11 +35,6 @@ services:
       - GEMINI_API_KEY=${GEMINI_API_KEY}
     depends_on:
       - mongodb
-    ports:
-      # Backend is internal; do not publish host port to avoid conflicts in Portainer.
-      # To expose the backend on the host, set HOST_PORT in the Stack environment and
-      # uncomment the line below.
-      # - "${HOST_PORT}:${BACKEND_PORT}"
     networks:
       - agrinova_net
     volumes:

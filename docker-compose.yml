@@ -10,7 +10,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
       - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
     volumes:
-      - ./docker-data/mongodb:/data/db:rw
+      - ${MOUNT_ROOT:-./docker-data}/mongodb:/data/db:rw
     networks:
       - agrinova_net
     healthcheck:
@@ -40,8 +40,8 @@ services:
     networks:
       - agrinova_net
     volumes:
-      - ./docker-data/backend/logs:/usr/src/app/logs:rw
-      - ./docker-data/backend/uploads:/usr/src/app/uploads:rw
+      - ${MOUNT_ROOT:-./docker-data}/backend/logs:/usr/src/app/logs:rw
+      - ${MOUNT_ROOT:-./docker-data}/backend/uploads:/usr/src/app/uploads:rw
     healthcheck:
       test: ["CMD-SHELL", "wget --spider --timeout=5 --retry-connrefused http://localhost:${BACKEND_PORT}/health || exit 1"]
       interval: 30s
@@ -64,8 +64,8 @@ services:
     networks:
       - agrinova_net
     volumes:
-      - ./docker-data/frontend/logs:/var/log/nginx:rw
-      - ./docker-data/frontend/nginx/conf.d:/etc/nginx/conf.d:rw
+      - ${MOUNT_ROOT:-./docker-data}/frontend/logs:/var/log/nginx:rw
+      - ${MOUNT_ROOT:-./docker-data}/frontend/nginx/conf.d:/etc/nginx/conf.d:rw
     healthcheck:
       test: ["CMD-SHELL", "wget --spider --timeout=5 --retry-connrefused http://localhost/ || exit 1"]
       interval: 30s
@@ -78,7 +78,7 @@ services:
     container_name: agrinova_proxy
     restart: unless-stopped
     volumes:
-      - ./docker-data/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ${MOUNT_ROOT:-./docker-data}/nginx/conf.d:/etc/nginx/conf.d:ro
     ports:
       - "${PROXY_PORT}:80"
     networks:

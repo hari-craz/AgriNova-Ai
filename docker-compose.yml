@@ -35,8 +35,6 @@ services:
       - GEMINI_API_KEY=${GEMINI_API_KEY}
     depends_on:
       - mongodb
-    ports:
-      - "${HOST_PORT}:${BACKEND_PORT}"
     networks:
       - agrinova_net
     volumes:

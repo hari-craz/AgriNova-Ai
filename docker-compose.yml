@@ -45,7 +45,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-      start_period: 10s
+      start_period: 30s
 
   frontend:
     build:
@@ -63,13 +63,12 @@ services:
       - agrinova_net
     volumes:
       - ${MOUNT_ROOT:-./docker-data}/frontend/logs:/var/log/nginx:rw
-      - ${MOUNT_ROOT:-./docker-data}/frontend/nginx/conf.d:/etc/nginx/conf.d:rw
     healthcheck:
       test: ["CMD-SHELL", "wget --spider --timeout=5 --retry-connrefused http://localhost/ || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 10s
+      start_period: 20s
 
   proxy:
     image: nginx:alpine
@@ -88,7 +87,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 10s
+      start_period: 20s
 
 networks:
   agrinova_net:

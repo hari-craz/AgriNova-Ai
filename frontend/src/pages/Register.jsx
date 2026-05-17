@@ -162,7 +162,7 @@ export default function Register() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-400 mb-2">State / Region</label>
+                <label className="block text-sm font-medium text-black-400 mb-2">State / Region</label>
                 <select
                   value={form.location}
                   onChange={(e) => updateForm('location', e.target.value)}
